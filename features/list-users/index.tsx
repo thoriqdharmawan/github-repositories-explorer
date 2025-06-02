@@ -1,3 +1,6 @@
+"use client";
+
+import useGetUsers from "@/api/users/useGetUsers";
 import {
   Accordion,
   AccordionContent,
@@ -15,21 +18,25 @@ const USERS = [
 ];
 
 const ListUsers = () => {
+  const { data, isPending, isError } = useGetUsers({
+    params: {
+      per_page: 5,
+      page: 1,
+    },
+  });
+
   return (
     <div className="m-auto max-w-2xl p-4">
-      <Input />
+      <Input  />
       <Button className="mt-4 w-full">Searh</Button>
 
       <div>
         <Accordion type="single" collapsible>
           {USERS.map((user) => (
-            <AccordionItem key={user.id} value={`item-${user.id}`}>
+            <AccordionItem key={user.id} value={`${user.id}`}>
               <AccordionTrigger>{user.name}</AccordionTrigger>
               <AccordionContent>
                 <p>User ID: {user.id}</p>
-                <p>
-                  Email: {user.name.toLowerCase().replace(" ", ".")}@example.com
-                </p>
               </AccordionContent>
             </AccordionItem>
           ))}
