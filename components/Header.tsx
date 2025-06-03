@@ -1,7 +1,9 @@
 "use client";
 
-import { Github } from "lucide-react";
+import { Github, LogIn } from "lucide-react";
+import { Button } from "./ui/button";
 import { ModeToggle } from "./ModeToggle";
+import { githubOAuthLogin } from "@/utils";
 
 export function Header() {
   return (
@@ -22,6 +24,15 @@ export function Header() {
         </div>
 
         <div className="flex items-center space-x-2">
+          <Button
+            onClick={githubOAuthLogin}
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2"
+          >
+            <LogIn className="h-4 w-4" />
+            <span className="hidden sm:inline">Login with GitHub</span>
+          </Button>
           <ModeToggle />
         </div>
       </div>
