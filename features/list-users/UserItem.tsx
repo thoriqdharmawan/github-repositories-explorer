@@ -25,9 +25,7 @@ const UserItem: FC<UserItemProps> = ({ user, onViewDetails }) => {
           />
           <div className="flex-1 text-left">
             <div className="flex items-center gap-2">
-              <span className="text-foreground font-medium">
-                {user.login}
-              </span>
+              <span className="text-foreground font-medium">{user.login}</span>
               {user.site_admin && (
                 <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300">
                   Admin
@@ -47,7 +45,7 @@ const UserItem: FC<UserItemProps> = ({ user, onViewDetails }) => {
                 e.stopPropagation();
                 onViewDetails?.(user);
               }}
-              className="flex items-center h-7 px-3 text-xs border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md cursor-pointer transition-colors"
+              className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex h-7 cursor-pointer items-center rounded-md border px-3 text-xs transition-colors"
             >
               <Eye className="mr-1 h-3 w-3" />
               Details
