@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
+import { ErrorState } from "@/components/ui/error-state";
 import { useState } from "react";
 import { Search, Users } from "lucide-react";
 
@@ -63,7 +64,23 @@ const ListUsers = () => {
             description="Please wait while we search for GitHub users."
           />
         )}
-        {isError && <p>Error occurred while searching users.</p>}
+        {isError && (
+          <ErrorState
+            size="sm"
+            title="Search Failed"
+            description="An error occurred while searching for users. Please try again."
+            action={
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setCurrentQuery(searchQuery);
+                }}
+              >
+                Try Again
+              </Button>
+            }
+          />
+        )}
 
         {!isLoading &&
           !isError &&
