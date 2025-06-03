@@ -39,7 +39,7 @@ const UserItem: FC<UserItemProps> = ({ user, onViewDetails }) => {
               ID: {user.id}
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <div
               onClick={(e) => {
                 e.stopPropagation();
