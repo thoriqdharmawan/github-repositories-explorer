@@ -6,6 +6,7 @@ import { ErrorState } from "@/components/ui/error-state";
 import { Button } from "@/components/ui/button";
 import { FC } from "react";
 import { GitBranch, RefreshCw } from "lucide-react";
+import RepoItem from "./RepoItem";
 
 interface ListReposProps {
   user: User;
@@ -28,8 +29,6 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
 
   return (
     <div>
-      <h2 className="mb-4 text-lg font-semibold">Repositories</h2>
-
       {isLoading && (
         <LoadingState
           size="sm"
@@ -62,25 +61,13 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
       )}
 
       {!isLoading && !isError && data && data.length > 0 && (
-        <ul className="list-disc pl-5">
+        <div className="pl-5">
           {data.map((repo) => (
-            <li key={repo.id} className="mb-2">
-              <a
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                {repo.name}
-              </a>
-              {repo.description && (
-                <p className="text-muted-foreground mt-1 text-sm">
-                  {repo.description}
-                </p>
-              )}
-            </li>
+            <div key={repo.id} className="mb-4 flex flex-col gap-4">
+              <RepoItem repo={repo} />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
