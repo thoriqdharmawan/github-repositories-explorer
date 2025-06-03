@@ -16,7 +16,7 @@ interface ListReposProps {
 const ListRepos: FC<ListReposProps> = ({ user }) => {
   const {
     data,
-    isError: ok,
+    isError,
     isLoading,
     refetch,
     fetchNextPage,
@@ -32,7 +32,6 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     },
   });
 
-  const isError = true;
   const errorMessage =
     error?.message || "Unable to fetch repositories for this user.";
   const isRateLimitError = errorMessage.includes("rate limit exceeded");
