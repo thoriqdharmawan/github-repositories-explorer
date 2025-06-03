@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { GitBranch, RefreshCw } from "lucide-react";
 import { FC } from "react";
+import { githubOAuthLogin } from "@/utils";
 
 interface ErrorActionsProps {
   onRetry: () => void;
@@ -23,11 +24,7 @@ const ErrorActions: FC<ErrorActionsProps> = ({
     if (onOAuthLogin) {
       onOAuthLogin();
     } else {
-      // Default OAuth login implementation
-      const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
-      const callbackUrl = process.env.NEXT_PUBLIC_AUTHORIZATION_CALLBACK_URI;
-      const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&scope=read:user`;
-      window.location.href = oauthUrl;
+      githubOAuthLogin();
     }
   };
 
