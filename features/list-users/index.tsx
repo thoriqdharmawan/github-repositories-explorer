@@ -1,12 +1,7 @@
 "use client";
 
 import useGetUsers from "@/api/users/useGetUsers";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
@@ -14,7 +9,7 @@ import { ErrorState } from "@/components/ui/error-state";
 import { useState } from "react";
 import { Search, Users } from "lucide-react";
 import SearchInput from "./SearchInput";
-import ListRepos from "../list-repos";
+import UserItem from "./UserItem";
 
 const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -120,12 +115,7 @@ const ListUsers = () => {
         {data?.items && data.items.length > 0 && (
           <Accordion type="single" collapsible>
             {data.items.map((user) => (
-              <AccordionItem key={user.id} value={`${user.id}`}>
-                <AccordionTrigger>{user.login}</AccordionTrigger>
-                <AccordionContent>
-                  <ListRepos user={user} />
-                </AccordionContent>
-              </AccordionItem>
+              <UserItem key={user.id} user={user} />
             ))}
           </Accordion>
         )}
