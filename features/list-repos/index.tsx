@@ -21,7 +21,7 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     refetch,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage
+    isFetchingNextPage,
   } = useGetReposInfinite({
     enable: !!user.login,
     user: user.login,
@@ -32,7 +32,7 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
   });
 
   const allRepos = useMemo(() => {
-    return data?.pages?.flatMap(page => page.data) || [];
+    return data?.pages?.flatMap((page) => page.data) || [];
   }, [data]);
 
   const handleRetry = () => {
@@ -94,13 +94,16 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
               </div>
             }
             endMessage={
-              <div className="text-center py-4 text-muted-foreground">
+              <div className="text-muted-foreground py-4 text-center">
                 <p>No more repositories to load.</p>
               </div>
             }
           >
-            {allRepos.map((repo) => (
-              <div key={repo.id} className="mb-4 flex flex-col gap-4">
+            {allRepos.map((repo, idx) => (
+              <div
+                key={`${repo.id}-${idx}`}
+                className="mb-4 flex flex-col gap-4"
+              >
                 <RepoItem repo={repo} />
               </div>
             ))}
