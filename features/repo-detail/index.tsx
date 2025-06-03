@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import DetailWrapper from "@/components/DetailWrapper";
 import { getLanguageColor } from "@/lib/languageColors";
+import { formatDate } from "@/utils";
 
 interface RepoDetailProps {
   repo: Repo;
@@ -31,14 +32,6 @@ const RepoDetail: FC<RepoDetailProps> = ({
   onClose,
   hideHeader = false,
 }) => {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
   const formatSize = (size: number) => {
     if (size < 1024) return `${size} KB`;
     return `${(size / 1024).toFixed(1)} MB`;

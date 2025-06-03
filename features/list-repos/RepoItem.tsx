@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { FC } from "react";
 import { getLanguageColor } from "@/lib/languageColors";
+import { formatDate } from "@/utils";
 
 interface RepoItem {
   repo: Repo;
@@ -16,17 +17,9 @@ interface RepoItem {
 }
 
 const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
   return (
     <div
-      className="rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md cursor-pointer"
+      className="cursor-pointer rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md"
       onClick={() => onRepoClick?.(repo)}
     >
       <div className="mb-3 flex items-start justify-between">
@@ -39,12 +32,12 @@ const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-lg font-semibold text-foreground hover:underline">
+              <h3 className="text-foreground text-lg font-semibold hover:underline">
                 {repo.name || "Unknown Repository"}
               </h3>
             </a>
             {repo.fork && (
-              <span className="text-xs text-gray-500 dark:text-gray-400 italic">
+              <span className="text-xs text-gray-500 italic dark:text-gray-400">
                 Forked repository
               </span>
             )}
@@ -70,7 +63,10 @@ const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
           className="h-6 w-6 rounded-full"
         />
         <span className="text-sm text-gray-600 dark:text-gray-300">
-          by <span className="font-medium text-gray-900 dark:text-gray-100">{repo.owner.login}</span>
+          by{" "}
+          <span className="font-medium text-gray-900 dark:text-gray-100">
+            {repo.owner.login}
+          </span>
         </span>
       </div>
 
@@ -85,7 +81,7 @@ const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
           {repo.topics.slice(0, 5).map((topic) => (
             <span
               key={topic}
-              className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
+              className="bg-primary/10 text-primary rounded-full px-2 py-1 text-xs"
             >
               {topic}
             </span>
