@@ -8,6 +8,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { FC } from "react";
+import { getLanguageColor } from "@/lib/languageColors";
 
 interface RepoItem {
   repo: Repo;
@@ -92,7 +93,10 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
         <div className="flex items-center gap-4">
           {repo.language && (
             <div className="flex items-center gap-1">
-              <div className="h-3 w-3 rounded-full bg-blue-500"></div>
+              <div
+                className="h-3 w-3 rounded-full"
+                style={{ backgroundColor: getLanguageColor(repo.language) }}
+              />
               <span>{repo.language}</span>
             </div>
           )}
