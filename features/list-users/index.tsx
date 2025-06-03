@@ -14,6 +14,7 @@ import { ErrorState } from "@/components/ui/error-state";
 import { useState } from "react";
 import { Search, Users } from "lucide-react";
 import SearchInput from "./SearchInput";
+import ListRepos from "../list-repos";
 
 const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -110,7 +111,7 @@ const ListUsers = () => {
               <AccordionItem key={user.id} value={`${user.id}`}>
                 <AccordionTrigger>{user.login}</AccordionTrigger>
                 <AccordionContent>
-                  <p>User ID: {user.id}</p>
+                  <ListRepos data={user} />
                 </AccordionContent>
               </AccordionItem>
             ))}
