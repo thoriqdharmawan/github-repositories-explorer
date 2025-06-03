@@ -113,11 +113,19 @@ const ListUsers = () => {
         )}
 
         {data?.items && data.items.length > 0 && (
-          <Accordion type="single" collapsible>
-            {data.items.map((user) => (
-              <UserItem key={user.id} user={user} />
-            ))}
-          </Accordion>
+          <>
+            <div className="mb-4">
+              <h2 className="text-muted-foreground text-sm">
+                Showing users for "{currentQuery}"
+              </h2>
+            </div>
+
+            <Accordion type="single" collapsible>
+              {data.items.map((user) => (
+                <UserItem key={user.id} user={user} />
+              ))}
+            </Accordion>
+          </>
         )}
       </div>
     </div>
