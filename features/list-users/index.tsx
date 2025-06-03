@@ -8,12 +8,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { useState } from "react";
 import { Search, Users } from "lucide-react";
+import SearchInput from "./SearchInput";
 
 const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,21 +40,13 @@ const ListUsers = () => {
 
   return (
     <div className="m-auto max-w-2xl p-4">
-      <div className="mb-4">
-        <Input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Search users..."
-        />
-        <Button
-          className="mt-4 w-full"
-          onClick={handleSearch}
-          disabled={isLoading}
-        >
-          {isLoading ? "Searching..." : "Search"}
-        </Button>
-      </div>
+      <SearchInput
+        searchQuery={searchQuery}
+        onSearchQueryChange={setSearchQuery}
+        onSearch={handleSearch}
+        onKeyPress={handleKeyPress}
+        isLoading={isLoading}
+      />
 
       <div>
         {isLoading && (
