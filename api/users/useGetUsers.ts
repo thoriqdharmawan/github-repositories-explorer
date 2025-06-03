@@ -30,8 +30,6 @@ const useGetUsers = (props?: Props) => {
       return response.data;
     } catch (error: unknown) {
       const e = error as AxiosError<null>;
-      console.log("Error fetching users:", e);
-      console.log("Error message:", e?.response?.data);
       throw new Error(e?.response?.data || "Failed to fetch users");
     }
   };
