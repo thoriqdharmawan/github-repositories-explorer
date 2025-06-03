@@ -111,7 +111,7 @@ const ListUsers = () => {
               <AccordionItem key={user.id} value={`${user.id}`}>
                 <AccordionTrigger>{user.login}</AccordionTrigger>
                 <AccordionContent>
-                  <ListRepos data={user} />
+                  <ListRepos user={user} />
                 </AccordionContent>
               </AccordionItem>
             ))}
