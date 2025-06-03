@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
+import { LoadingState } from "@/components/ui/loading-state";
 import { useState } from "react";
 import { Search, Users } from "lucide-react";
 
@@ -36,10 +37,6 @@ const ListUsers = () => {
     }
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div className="m-auto max-w-2xl p-4">
       <div className="mb-4">
@@ -59,7 +56,13 @@ const ListUsers = () => {
       </div>
 
       <div>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && (
+          <LoadingState
+            size="sm"
+            title="Searching users..."
+            description="Please wait while we search for GitHub users."
+          />
+        )}
         {isError && <p>Error occurred while searching users.</p>}
 
         {!isLoading &&
