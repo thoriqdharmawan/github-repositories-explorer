@@ -8,9 +8,14 @@ import { Button } from "@/components/ui/button";
 interface UserDetailProps {
   user: User;
   onClose: () => void;
+  hideHeader?: boolean;
 }
 
-const UserDetail: FC<UserDetailProps> = ({ user, onClose }) => {
+const UserDetail: FC<UserDetailProps> = ({
+  user,
+  onClose,
+  hideHeader = false,
+}) => {
   const endpoints = [
     { label: "Profile", url: user.url },
     { label: "Repositories", url: user.repos_url },
@@ -24,18 +29,22 @@ const UserDetail: FC<UserDetailProps> = ({ user, onClose }) => {
   ];
 
   return (
-    <div className="bg-card h-full overflow-y-auto border-l p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">User Details</h2>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onClose}
-          className="h-8 w-8 p-0"
-        >
-          <X className="h-4 w-4" />
-        </Button>
-      </div>
+    <div
+      className={`bg-card h-full overflow-y-auto p-6 ${!hideHeader ? "border-l" : ""}`}
+    >
+      {!hideHeader && (
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">User Details</h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="h-8 w-8 p-0"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
 
       <div className="space-y-6">
         <div className="flex flex-col items-center text-center">

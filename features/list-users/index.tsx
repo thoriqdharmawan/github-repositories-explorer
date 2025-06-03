@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { ErrorState } from "@/components/ui/error-state";
-import { useState } from "react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { useState, useEffect } from "react";
 import { Search, Users } from "lucide-react";
 import { User } from "@/types/users";
 import SearchInput from "./SearchInput";
@@ -17,6 +23,18 @@ const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentQuery, setCurrentQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
 
   const { data, isError, isLoading, error } = useGetUsers({
     enable: !!currentQuery,
@@ -51,111 +69,139 @@ const ListUsers = () => {
   };
 
   return (
-    <div className="flex h-full">
-      <div
-        className={`transition-all duration-300 ${selectedUser ? "w-1/2" : "w-full"} p-4`}
-      >
-        <div className="m-auto max-w-2xl">
-          <SearchInput
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
-            onSearch={handleSearch}
-            onKeyPress={handleKeyPress}
-            isLoading={isLoading}
-          />
+    <>
+      <div className="flex h-full">
+        <div
+          className={`transition-all duration-300 ${selectedUser && !isMobile ? "w-1/2" : "w-full"} p-4`}
+        >
+          <div className="m-auto max-w-2xl">
+            <SearchInput
+              searchQuery={searchQuery}
+              onSearchQueryChange={setSearchQuery}
+              onSearch={handleSearch}
+              onKeyPress={handleKeyPress}
+              isLoading={isLoading}
+            />
 
-          <div>
-            {isLoading && (
-              <LoadingState
-                size="sm"
-                title="Searching users..."
-                description="Please wait while we search for GitHub users."
-              />
-            )}
-            {isError && (
-              <ErrorState
-                size="sm"
-                title={
-                  isRateLimitError ? "API Rate Limit Exceeded" : "Search Failed"
-                }
-                description={
-                  isRateLimitError
-                    ? errorMessage +
-                      " Please try again later or consider using GitHub authentication for higher rate limits."
-                    : errorMessage
-                }
-                action={
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setCurrentQuery(searchQuery);
-                    }}
-                  >
-                    Try Again
-                  </Button>
-                }
-              />
-            )}
-
-            {!isLoading &&
-              !isError &&
-              currentQuery &&
-              (!data?.items || data.items.length === 0) && (
-                <EmptyState
-                  icon={<Search className="text-muted-foreground h-8 w-8" />}
-                  title="No users found"
-                  description={`No results for "${currentQuery}". Try using different search keywords.`}
+            <div>
+              {isLoading && (
+                <LoadingState
+                  size="sm"
+                  title="Searching users..."
+                  description="Please wait while we search for GitHub users."
+                />
+              )}
+              {isError && (
+                <ErrorState
+                  size="sm"
+                  title={
+                    isRateLimitError
+                      ? "API Rate Limit Exceeded"
+                      : "Search Failed"
+                  }
+                  description={
+                    isRateLimitError
+                      ? errorMessage +
+                        " Please try again later or consider using GitHub authentication for higher rate limits."
+                      : errorMessage
+                  }
                   action={
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setCurrentQuery("");
-                        setSearchQuery("");
+                        setCurrentQuery(searchQuery);
                       }}
                     >
-                      Reset Search
+                      Try Again
                     </Button>
                   }
                 />
               )}
 
-            {!isLoading && !isError && !currentQuery && (
-              <EmptyState
-                icon={<Users className="text-muted-foreground h-8 w-8" />}
-                title="Start searching for users"
-                description="Enter a GitHub username in the search box above to find users."
-              />
-            )}
+              {!isLoading &&
+                !isError &&
+                currentQuery &&
+                (!data?.items || data.items.length === 0) && (
+                  <EmptyState
+                    icon={<Search className="text-muted-foreground h-8 w-8" />}
+                    title="No users found"
+                    description={`No results for "${currentQuery}". Try using different search keywords.`}
+                    action={
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setCurrentQuery("");
+                          setSearchQuery("");
+                        }}
+                      >
+                        Reset Search
+                      </Button>
+                    }
+                  />
+                )}
 
-            {data?.items && data.items.length > 0 && (
-              <>
-                <div className="mb-4">
-                  <h2 className="text-muted-foreground text-sm">
-                    Showing users for "{currentQuery}"
-                  </h2>
-                </div>
+              {!isLoading && !isError && !currentQuery && (
+                <EmptyState
+                  icon={<Users className="text-muted-foreground h-8 w-8" />}
+                  title="Start searching for users"
+                  description="Enter a GitHub username in the search box above to find users."
+                />
+              )}
 
-                <Accordion type="single" collapsible>
-                  {data.items.map((user) => (
-                    <UserItem
-                      key={user.id}
-                      user={user}
-                      onViewDetails={handleViewDetails}
-                    />
-                  ))}
-                </Accordion>
-              </>
-            )}
+              {data?.items && data.items.length > 0 && (
+                <>
+                  <div className="mb-4">
+                    <h2 className="text-muted-foreground text-sm">
+                      Showing users for "{currentQuery}"
+                    </h2>
+                  </div>
+
+                  <Accordion type="single" collapsible>
+                    {data.items.map((user) => (
+                      <UserItem
+                        key={user.id}
+                        user={user}
+                        onViewDetails={handleViewDetails}
+                      />
+                    ))}
+                  </Accordion>
+                </>
+              )}
+            </div>
           </div>
         </div>
+
+        {selectedUser && !isMobile && (
+          <div className="w-1/2">
+            <UserDetail user={selectedUser} onClose={handleCloseDetails} />
+          </div>
+        )}
       </div>
 
-      {selectedUser && (
-        <div className="w-1/2">
-          <UserDetail user={selectedUser} onClose={handleCloseDetails} />
-        </div>
-      )}
-    </div>
+      <Drawer
+        open={selectedUser !== null && isMobile}
+        onOpenChange={(open) => {
+          if (!open) {
+            handleCloseDetails();
+          }
+        }}
+      >
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>User Details</DrawerTitle>
+          </DrawerHeader>
+          <div className="max-h-[80vh] overflow-y-auto">
+            {selectedUser && (
+              <UserDetail
+                user={selectedUser}
+                onClose={handleCloseDetails}
+                hideHeader={true}
+              />
+            )}
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
