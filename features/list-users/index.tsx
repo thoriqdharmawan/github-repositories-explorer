@@ -9,7 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { EmptyState } from "@/components/ui/empty-state";
 import { useState } from "react";
+import { Search, Users } from "lucide-react";
 
 const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,24 +62,48 @@ const ListUsers = () => {
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error occurred while searching users.</p>}
 
-        <Accordion type="single" collapsible>
-          {/* {data?.map((user) => (
-            <AccordionItem key={user.id} value={`${user.id}`}>
-              <AccordionTrigger>{user.name}</AccordionTrigger>
-              <AccordionContent>
-                <p>User ID: {user.id}</p>
-              </AccordionContent>
-            </AccordionItem>
-          ))} */}
-          {data?.items?.map((user) => (
-            <AccordionItem key={user.id} value={`${user.id}`}>
-              <AccordionTrigger>{user.login}</AccordionTrigger>
-              <AccordionContent>
-                <p>User ID: {user.id}</p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {!isLoading &&
+          !isError &&
+          currentQuery &&
+          (!data?.items || data.items.length === 0) && (
+            <EmptyState
+              icon={<Search className="text-muted-foreground h-8 w-8" />}
+              title="No users found"
+              description={`No results for "${currentQuery}". Try using different search keywords.`}
+              action={
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setCurrentQuery("");
+                    setSearchQuery("");
+                  }}
+                >
+                  Reset Search
+                </Button>
+              }
+            />
+          )}
+
+        {!isLoading && !isError && !currentQuery && (
+          <EmptyState
+            icon={<Users className="text-muted-foreground h-8 w-8" />}
+            title="Start searching for users"
+            description="Enter a GitHub username in the search box above to find users."
+          />
+        )}
+
+        {data?.items && data.items.length > 0 && (
+          <Accordion type="single" collapsible>
+            {data.items.map((user) => (
+              <AccordionItem key={user.id} value={`${user.id}`}>
+                <AccordionTrigger>{user.login}</AccordionTrigger>
+                <AccordionContent>
+                  <p>User ID: {user.id}</p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        )}
       </div>
     </div>
   );
