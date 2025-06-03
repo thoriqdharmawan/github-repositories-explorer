@@ -22,6 +22,7 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    error
   } = useGetReposInfinite({
     enable: !!user.login,
     user: user.login,
@@ -30,6 +31,9 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
       per_page: 10,
     },
   });
+
+  const errorMessage = error?.message || "Unable to fetch repositories for this user.";
+  const isRateLimitError = errorMessage.includes("rate limit exceeded");
 
   const allRepos = useMemo(() => {
     return data?.pages?.flatMap((page) => page.data) || [];
@@ -58,8 +62,12 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
       {isError && (
         <ErrorState
           size="sm"
-          title="Failed to Load Repositories"
-          description="Unable to fetch repositories for this user."
+          title={isRateLimitError ? "API Rate Limit Exceeded" : "Failed to Load Repositories"}
+          description={
+            isRateLimitError
+              ? errorMessage + " Please try again later or consider using GitHub authentication for higher rate limits."
+              : errorMessage
+          }
           action={
             <Button variant="outline" size="sm" onClick={handleRetry}>
               <RefreshCw className="mr-2 h-4 w-4" />

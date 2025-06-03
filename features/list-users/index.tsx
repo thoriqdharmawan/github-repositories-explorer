@@ -20,7 +20,7 @@ const ListUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentQuery, setCurrentQuery] = useState("");
 
-  const { data, isError, isLoading } = useGetUsers({
+  const { data, isError, isLoading, error } = useGetUsers({
     enable: !!currentQuery,
     params: {
       q: currentQuery,
@@ -28,6 +28,11 @@ const ListUsers = () => {
       page: 1,
     },
   });
+
+  const errorMessage =
+    error?.message ||
+    "An error occurred while searching for users. Please try again.";
+  const isRateLimitError = errorMessage.includes("rate limit exceeded");
 
   const handleSearch = () => {
     setCurrentQuery(searchQuery);
@@ -60,8 +65,15 @@ const ListUsers = () => {
         {isError && (
           <ErrorState
             size="sm"
-            title="Search Failed"
-            description="An error occurred while searching for users. Please try again."
+            title={
+              isRateLimitError ? "API Rate Limit Exceeded" : "Search Failed"
+            }
+            description={
+              isRateLimitError
+                ? errorMessage +
+                  " Please try again later or consider using GitHub authentication for higher rate limits."
+                : errorMessage
+            }
             action={
               <Button
                 variant="outline"
