@@ -3,9 +3,9 @@ import { User } from "@/types/users";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { ErrorState } from "@/components/ui/error-state";
-import { Button } from "@/components/ui/button";
+import ErrorActions from "@/components/ui/error-actions";
 import { FC, useMemo } from "react";
-import { GitBranch, RefreshCw } from "lucide-react";
+import { GitBranch } from "lucide-react";
 import RepoItem from "./RepoItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -45,13 +45,6 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     refetch();
   };
 
-  const handleOAuthLogin = () => {
-    const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
-    const callbackUrl = process.env.NEXT_PUBLIC_AUTHORIZATION_CALLBACK_URI;
-    const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&scope=read:user`;
-    window.location.href = oauthUrl;
-  };
-
   const loadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -83,23 +76,10 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
               : errorMessage
           }
           action={
-            isRateLimitError ? (
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button variant="default" size="sm" onClick={handleOAuthLogin}>
-                  <GitBranch className="mr-2 h-4 w-4" />
-                  Login with GitHub
-                </Button>
-                <Button variant="outline" size="sm" onClick={handleRetry}>
-                  <RefreshCw className="mr-2 h-4 w-4" />
-                  Try Again
-                </Button>
-              </div>
-            ) : (
-              <Button variant="outline" size="sm" onClick={handleRetry}>
-                <RefreshCw className="mr-2 h-4 w-4" />
-                Try Again
-              </Button>
-            )
+            <ErrorActions
+              onRetry={handleRetry}
+              isRateLimitError={isRateLimitError}
+            />
           }
         />
       )}
