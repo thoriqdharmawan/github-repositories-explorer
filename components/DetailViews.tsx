@@ -42,7 +42,7 @@ const DetailViews = () => {
       <div
         className={`${
           hasActiveDetail ? "w-96" : "w-0"
-        } bg-background overflow-hidden border-l transition-all duration-300 ease-in-out`}
+        } bg-background overflow-hidden border-l transition-all duration-300 ease-in-out sticky top-16 h-[calc(100vh-4rem)]`}
       >
         <div
           className={`h-full w-96 transition-transform duration-300 ease-in-out ${
