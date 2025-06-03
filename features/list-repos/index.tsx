@@ -16,13 +16,13 @@ interface ListReposProps {
 const ListRepos: FC<ListReposProps> = ({ user }) => {
   const {
     data,
-    isError,
+    isError: ok,
     isLoading,
     refetch,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    error
+    error,
   } = useGetReposInfinite({
     enable: !!user.login,
     user: user.login,
@@ -32,7 +32,9 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     },
   });
 
-  const errorMessage = error?.message || "Unable to fetch repositories for this user.";
+  const isError = true;
+  const errorMessage =
+    error?.message || "Unable to fetch repositories for this user.";
   const isRateLimitError = errorMessage.includes("rate limit exceeded");
 
   const allRepos = useMemo(() => {
@@ -41,6 +43,13 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
 
   const handleRetry = () => {
     refetch();
+  };
+
+  const handleOAuthLogin = () => {
+    const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+    const callbackUrl = process.env.NEXT_PUBLIC_AUTHORIZATION_CALLBACK_URI;
+    const oauthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&scope=read:user`;
+    window.location.href = oauthUrl;
   };
 
   const loadMore = () => {
@@ -62,17 +71,35 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
       {isError && (
         <ErrorState
           size="sm"
-          title={isRateLimitError ? "API Rate Limit Exceeded" : "Failed to Load Repositories"}
+          title={
+            isRateLimitError
+              ? "API Rate Limit Exceeded"
+              : "Failed to Load Repositories"
+          }
           description={
             isRateLimitError
-              ? errorMessage + " Please try again later or consider using GitHub authentication for higher rate limits."
+              ? errorMessage +
+                " Please try again later or login with GitHub for higher rate limits."
               : errorMessage
           }
           action={
-            <Button variant="outline" size="sm" onClick={handleRetry}>
-              <RefreshCw className="mr-2 h-4 w-4" />
-              Try Again
-            </Button>
+            isRateLimitError ? (
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button variant="default" size="sm" onClick={handleOAuthLogin}>
+                  <GitBranch className="mr-2 h-4 w-4" />
+                  Login with GitHub
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleRetry}>
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Try Again
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={handleRetry}>
+                <RefreshCw className="mr-2 h-4 w-4" />
+                Try Again
+              </Button>
+            )
           }
         />
       )}
