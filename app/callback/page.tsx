@@ -79,7 +79,7 @@ export default function CallbackPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center px-4">
         <div className="space-y-4 text-center">
           <Loader2 className="mx-auto h-8 w-8 animate-spin" />
           <h2 className="text-xl font-semibold">Processing your login...</h2>
@@ -93,7 +93,7 @@ export default function CallbackPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center px-4">
         <div className="max-w-md space-y-4 text-center">
           <AlertCircle className="mx-auto h-12 w-12 text-red-500" />
           <h2 className="text-xl font-semibold text-red-600">Login Failed</h2>
@@ -108,7 +108,7 @@ export default function CallbackPage() {
 
   if (user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center px-4">
         <div className="space-y-4 text-center">
           <div className="flex items-center justify-center space-x-2">
             <Github className="h-6 w-6 text-green-600" />
