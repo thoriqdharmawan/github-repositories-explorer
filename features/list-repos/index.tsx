@@ -99,14 +99,19 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
               </div>
             }
           >
-            {allRepos.map((repo, idx) => (
-              <div
-                key={`${repo.id}-${idx}`}
-                className="mb-4 flex flex-col gap-4"
-              >
-                <RepoItem repo={repo} />
-              </div>
-            ))}
+            {allRepos.map((repo, idx) => {
+              const pagePosition = idx % 10;
+              const delayClass = `animate-delay-${Math.min(pagePosition * 100 + 100, 1000)}`;
+
+              return (
+                <div
+                  key={`${repo.id}-${idx}`}
+                  className={`animate-fade-in-right mb-4 flex flex-col gap-4 ${delayClass}`}
+                >
+                  <RepoItem repo={repo} />
+                </div>
+              );
+            })}
           </InfiniteScroll>
         </div>
       )}
