@@ -27,22 +27,22 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
     <div className="rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md">
       <div className="mb-3 flex items-start justify-between">
         <div className="flex flex-1 items-center gap-2">
-          <BookMarked className="text-blue-600" size={18} />
+          <BookMarked className="text-primary" size={18} />
           <div className="flex-1">
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-              <h3 className="text-lg font-semibold text-gray-900 hover:underline">
+              <h3 className="text-lg font-semibold text-foreground hover:underline">
                 {repo.name || "Unknown Repository"}
               </h3>
             </a>
             {repo.fork && (
-              <span className="text-xs text-gray-500 italic">
+              <span className="text-xs text-gray-500 dark:text-gray-400 italic">
                 Forked repository
               </span>
             )}
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-sm text-gray-500">
+        <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1">
             <Star size={14} />
             <span>{repo.stargazers_count}</span>
@@ -60,12 +60,12 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
           alt={repo.owner.login}
           className="h-6 w-6 rounded-full"
         />
-        <span className="text-sm text-gray-600">
-          by <span className="font-medium">{repo.owner.login}</span>
+        <span className="text-sm text-gray-600 dark:text-gray-300">
+          by <span className="font-medium text-gray-900 dark:text-gray-100">{repo.owner.login}</span>
         </span>
       </div>
 
-      <p className="mb-3 text-sm text-gray-600">
+      <p className="mb-3 text-sm text-gray-600 dark:text-gray-300">
         {repo.description || (
           <span className="italic">No description available.</span>
         )}
@@ -76,20 +76,20 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
           {repo.topics.slice(0, 5).map((topic) => (
             <span
               key={topic}
-              className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800"
+              className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
             >
               {topic}
             </span>
           ))}
           {repo.topics.length > 5 && (
-            <span className="px-2 py-1 text-xs text-gray-500">
+            <span className="px-2 py-1 text-xs text-gray-500 dark:text-gray-400">
               +{repo.topics.length - 5} more
             </span>
           )}
         </div>
       )}
 
-      <div className="flex items-center justify-between text-xs text-gray-500">
+      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
         <div className="flex items-center gap-4">
           {repo.language && (
             <div className="flex items-center gap-1">
@@ -113,7 +113,7 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
               href={repo.homepage}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:text-blue-600"
+              className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400"
             >
               <Globe size={12} />
               <span>Website</span>
