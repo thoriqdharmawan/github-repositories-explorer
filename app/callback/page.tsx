@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Github, Loader2, AlertCircle } from "lucide-react";
+import { setAuthData } from "@/utils";
 
 export default function CallbackPage() {
   const router = useRouter();
@@ -58,8 +59,7 @@ export default function CallbackPage() {
         const userData = await userResponse.json();
         setUser(userData);
 
-        localStorage.setItem("github_access_token", access_token);
-        localStorage.setItem("github_user", JSON.stringify(userData));
+        setAuthData(access_token, userData);
 
         setTimeout(() => {
           router.push("/");

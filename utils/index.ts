@@ -32,5 +32,13 @@ export const logout = () => {
   if (typeof window === "undefined") return;
   localStorage.removeItem("github_access_token");
   localStorage.removeItem("github_user");
+  window.dispatchEvent(new CustomEvent("auth-changed"));
   window.location.reload();
+};
+
+export const setAuthData = (token: string, userData: any) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem("github_access_token", token);
+  localStorage.setItem("github_user", JSON.stringify(userData));
+  window.dispatchEvent(new CustomEvent("auth-changed"));
 };

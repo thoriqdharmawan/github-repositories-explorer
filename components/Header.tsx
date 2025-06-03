@@ -4,7 +4,7 @@ import { Github, LogIn, LogOut, User } from "lucide-react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./ModeToggle";
 import { githubOAuthLogin, logout } from "@/utils";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/providers/AuthProvider";
 
 export function Header() {
   const { authenticated, user } = useAuth();
