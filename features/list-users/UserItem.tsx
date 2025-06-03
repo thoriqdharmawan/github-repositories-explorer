@@ -19,17 +19,17 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
           />
           <div className="flex-1 text-left">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-gray-900">{user.login}</span>
+              <span className="font-medium text-foreground">{user.login}</span>
               {user.site_admin && (
-                <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">
+                <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300 rounded-full">
                   Admin
                 </span>
               )}
-              <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full capitalize">
+              <span className="px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded-full capitalize">
                 {user.type}
               </span>
             </div>
-            <div className="text-sm text-gray-500 mt-1">
+            <div className="text-sm text-muted-foreground mt-1">
               ID: {user.id}
             </div>
           </div>
@@ -38,7 +38,7 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
               href={user.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-blue-600 hover:underline"
+              className="text-xs text-primary hover:text-primary/80 hover:underline"
               onClick={(e) => e.stopPropagation()}
             >
               View Profile
