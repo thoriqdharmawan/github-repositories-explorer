@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import DetailWrapper from "@/components/DetailWrapper";
 import { getLanguageColor } from "@/lib/languageColors";
 import { formatDate } from "@/utils";
+import { cn } from "@/lib/utils";
 
 interface RepoDetailProps {
   repo: Repo;
@@ -105,7 +106,12 @@ const RepoDetail: FC<RepoDetailProps> = ({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div
+        className={cn("grid gap-2", {
+          "grid-cols-2": !!repo.homepage,
+          "grid-cols-1": !repo.homepage,
+        })}
+      >
         <Button
           variant="default"
           className="w-full"
@@ -127,7 +133,6 @@ const RepoDetail: FC<RepoDetailProps> = ({
         )}
       </div>
 
-      {/* Repository Statistics */}
       <div className="space-y-4">
         <h4 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
           Statistics
