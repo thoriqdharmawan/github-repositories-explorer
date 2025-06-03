@@ -2,8 +2,8 @@ import ListUsers from "@/features/list-users";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <main className="container mx-auto py-6">
       <ListUsers />
-    </div>
+    </main>
   );
 }
