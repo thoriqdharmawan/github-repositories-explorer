@@ -121,19 +121,20 @@ const ListUsers = () => {
 
           {data?.items && data.items.length > 0 && (
             <>
-              <div className="mb-4">
+              <div className="animate-fade-in-right mb-4">
                 <h2 className="text-muted-foreground text-sm">
                   Showing users for "{currentQuery}"
                 </h2>
               </div>
 
               <Accordion type="single" collapsible>
-                {data.items.map((user) => (
-                  <UserItem
+                {data.items.map((user, index) => (
+                  <div
                     key={user.id}
-                    user={user}
-                    onViewDetails={handleViewDetails}
-                  />
+                    className={`animate-fade-in-right animate-delay-${Math.min((index + 1) * 100, 1000)}`}
+                  >
+                    <UserItem user={user} onViewDetails={handleViewDetails} />
+                  </div>
                 ))}
               </Accordion>
             </>
