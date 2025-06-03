@@ -1,11 +1,13 @@
 import useGetReposInfinite from "@/api/repos/useGetReposInfinite";
 import { User } from "@/types/users";
+import { Repo } from "@/types/repos";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { ErrorState } from "@/components/ui/error-state";
 import ErrorActions from "@/components/ui/error-actions";
 import { FC, useMemo } from "react";
 import { GitBranch } from "lucide-react";
+import { useDetailContext } from "@/providers/DetailProvider";
 import RepoItem from "./RepoItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -14,6 +16,8 @@ interface ListReposProps {
 }
 
 const ListRepos: FC<ListReposProps> = ({ user }) => {
+  const { setSelectedRepo } = useDetailContext();
+
   const {
     data,
     isError,
@@ -50,8 +54,12 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
     }
   };
 
+  const handleRepoClick = (repo: Repo) => {
+    setSelectedRepo(repo);
+  };
+
   return (
-    <div>
+    <div className="flex-1">
       {isLoading && (
         <LoadingState
           size="sm"
@@ -122,7 +130,7 @@ const ListRepos: FC<ListReposProps> = ({ user }) => {
                   key={`${repo.id}-${idx}`}
                   className={`animate-fade-in-right mb-4 flex flex-col gap-4 ${delayClass}`}
                 >
-                  <RepoItem repo={repo} />
+                  <RepoItem repo={repo} onRepoClick={handleRepoClick} />
                 </div>
               );
             })}

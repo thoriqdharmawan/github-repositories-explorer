@@ -12,9 +12,10 @@ import { getLanguageColor } from "@/lib/languageColors";
 
 interface RepoItem {
   repo: Repo;
+  onRepoClick?: (repo: Repo) => void;
 }
 
-const RepoItem: FC<RepoItem> = ({ repo }) => {
+const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("id-ID", {
       year: "numeric",
@@ -24,12 +25,20 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
   };
 
   return (
-    <div className="rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md">
+    <div
+      className="rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md cursor-pointer"
+      onClick={() => onRepoClick?.(repo)}
+    >
       <div className="mb-3 flex items-start justify-between">
         <div className="flex flex-1 items-center gap-2">
           <BookMarked className="text-primary" size={18} />
           <div className="flex-1">
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
               <h3 className="text-lg font-semibold text-foreground hover:underline">
                 {repo.name || "Unknown Repository"}
               </h3>
@@ -114,6 +123,7 @@ const RepoItem: FC<RepoItem> = ({ repo }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400"
+              onClick={(e) => e.stopPropagation()}
             >
               <Globe size={12} />
               <span>Website</span>
