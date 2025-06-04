@@ -43,6 +43,7 @@ const DetailViews = () => {
         className={`${
           hasActiveDetail ? "w-96" : "w-0"
         } bg-background sticky top-16 h-[calc(100vh-4rem)] overflow-hidden border-l transition-all duration-300 ease-in-out`}
+        role="complementary"
       >
         <div
           className={`h-full w-96 transition-transform duration-300 ease-in-out ${
@@ -66,7 +67,7 @@ const DetailViews = () => {
         open={!!selectedUser}
         onOpenChange={(open) => !open && handleCloseUserDetail()}
       >
-        <DrawerContent className="max-h-[90vh]">
+        <DrawerContent role="complementary" className="max-h-[90vh]">
           <DrawerHeader className="border-b">
             <DrawerTitle>User Details</DrawerTitle>
           </DrawerHeader>
