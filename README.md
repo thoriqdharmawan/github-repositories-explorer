@@ -165,6 +165,12 @@ This project includes comprehensive testing with:
 - **Test Coverage** - Detailed coverage reports
 - **Continuous Testing** - Watch mode for development
 
+### 📊 Test Coverage Report
+
+![Test Coverage](./public/demo/test-coverage.png)
+
+Our test suite maintains high code coverage across all modules to ensure reliability and maintainability.
+
 ```bash
 # Run all tests
 npm test
@@ -174,6 +180,9 @@ npm run test:coverage
 
 # Run tests in watch mode
 npm run test:watch
+
+# Open coverage report in browser
+npm run test:coverage:open
 ```
 
 ## 📁 Project Structure
