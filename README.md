@@ -9,6 +9,30 @@
 > 🔍 **Discover and explore GitHub users and their repositories with style!**
 > A modern, responsive web application built with Next.js, featuring GitHub OAuth authentication, infinite scrolling, and beautiful UI components.
 
+## 🎥 Demo
+
+<div align="center">
+
+**See the app in action!**
+
+### 🖥️ Desktop Experience
+
+  <video width="800" autoplay muted loop>
+    <source src="./public/demo/demo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+### 📱 Mobile Experience
+
+   <video width="300" autoplay muted loop>
+    <source src="./public/demo/demo-mobile.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+_Experience the smooth user interface, search functionality, and responsive design across all devices_
+
+</div>
+
 ## ✨ Features
 
 ### 🔐 **Authentication & Security**
