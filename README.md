@@ -16,20 +16,16 @@
 **See the app in action!**
 
 ### 🖥️ Desktop Experience
-
-  <video width="800" autoplay muted loop>
-    <source src="./public/demo/demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+![Desktop Demo](./public/demo/demo.gif)
 
 ### 📱 Mobile Experience
+![Mobile Demo](./public/demo/demo-mobile.gif)
 
-   <video width="300" autoplay muted loop>
-    <source src="./public/demo/demo-mobile.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+*Experience the smooth user interface, search functionality, and responsive design across all devices*
 
-_Experience the smooth user interface, search functionality, and responsive design across all devices_
+> **Note:** If you prefer to see the full video demos, you can find them in the [`public/demo/`](./public/demo/) folder:
+> - [Desktop Demo (MP4)](./public/demo/demo.mp4)
+> - [Mobile Demo (MP4)](./public/demo/demo-mobile.mp4)
 
 </div>
 
