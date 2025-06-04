@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import {
-  SEO_CONSTANTS,
-  SCHEMA_TYPES,
-  ROBOT_SETTINGS,
-  ICON_SIZES,
-} from "./seo-constants";
+import { SEO_CONSTANTS, SCHEMA_TYPES, ROBOT_SETTINGS } from "./seo-constants";
 import type {
   SiteConfig,
   PageMetadataOptions,
   StructuredDataWebApp,
 } from "@/types/metadata";
 
-const URL =
+const PUBLIC_URL =
   process.env.NEXT_PUBLIC_BASE_URL ||
   "https://github-repositories-explorer.vercel.app";
 
@@ -19,7 +14,7 @@ export const siteConfig: SiteConfig = {
   name: SEO_CONSTANTS.SITE_NAME,
   description:
     "Discover and explore GitHub users and their repositories. Search for developers, browse their projects, and find interesting open-source repositories with detailed insights and statistics.",
-  url: URL,
+  url: PUBLIC_URL,
   ogImage: "/og-image.png",
   creator: "Thoriq Dharmawan",
   twitterHandle: "@github_explorer",
@@ -37,7 +32,17 @@ export const siteConfig: SiteConfig = {
   ],
 };
 
+const getMetadataBaseURL = () => {
+  try {
+    return new URL(PUBLIC_URL);
+  } catch {
+    // Fallback for development environment
+    return new URL("http://localhost:3000");
+  }
+};
+
 export const defaultMetadata: Metadata = {
+  metadataBase: getMetadataBaseURL(),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -47,6 +52,27 @@ export const defaultMetadata: Metadata = {
   authors: [{ name: siteConfig.creator }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+  },
   robots: {
     ...ROBOT_SETTINGS.DEFAULT,
     googleBot: ROBOT_SETTINGS.GOOGLE_BOT,
@@ -74,11 +100,6 @@ export const defaultMetadata: Metadata = {
     images: [siteConfig.ogImage],
     creator: siteConfig.twitterHandle,
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
   verification: {
     google: process.env.GOOGLE_VERIFICATION_CODE,
     yandex: process.env.YANDEX_VERIFICATION_CODE,
@@ -88,34 +109,6 @@ export const defaultMetadata: Metadata = {
     canonical: siteConfig.url,
   },
   manifest: "/manifest.json",
-  icons: {
-    icon: [
-      {
-        url: "/favicon-16x16.png",
-        sizes: ICON_SIZES.FAVICON_16,
-        type: "image/png",
-      },
-      {
-        url: "/favicon-32x32.png",
-        sizes: ICON_SIZES.FAVICON_32,
-        type: "image/png",
-      },
-    ],
-    apple: [
-      {
-        url: "/apple-touch-icon.png",
-        sizes: ICON_SIZES.APPLE_TOUCH,
-        type: "image/png",
-      },
-    ],
-    other: [
-      {
-        rel: "mask-icon",
-        url: "/safari-pinned-tab.svg",
-        color: SEO_CONSTANTS.THEME_COLOR,
-      },
-    ],
-  },
   other: {
     "theme-color": SEO_CONSTANTS.THEME_COLOR,
     "msapplication-TileColor": SEO_CONSTANTS.MSAPPLICATION_TILE_COLOR,
