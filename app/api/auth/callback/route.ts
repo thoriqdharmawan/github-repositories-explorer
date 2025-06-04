@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       token_type: tokenData.token_type,
       scope: tokenData.scope,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal server error during OAuth callback" },
       { status: 500 },
