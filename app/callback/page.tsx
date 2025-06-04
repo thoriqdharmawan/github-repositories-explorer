@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Github, Loader2, AlertCircle } from "lucide-react";
 import { setAuthData } from "@/utils";
 import { GitHubUser } from "@/types/github";
 
-export default function CallbackPage() {
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -130,4 +130,24 @@ export default function CallbackPage() {
   }
 
   return null;
+}
+
+export default function CallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center px-4">
+          <div className="space-y-4 text-center">
+            <Loader2 className="mx-auto h-8 w-8 animate-spin" />
+            <h2 className="text-xl font-semibold">Loading...</h2>
+            <p className="text-muted-foreground">
+              Please wait while we process your request.
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <CallbackContent />
+    </Suspense>
+  );
 }
