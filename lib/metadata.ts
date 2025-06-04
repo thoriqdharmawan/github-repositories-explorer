@@ -8,7 +8,7 @@ import type {
 
 const PUBLIC_URL =
   process.env.NEXT_PUBLIC_BASE_URL ||
-  "https://github-repositories-explorer.vercel.app";
+  "https://github-repositories-explorer-xi.vercel.app/";
 
 export const siteConfig: SiteConfig = {
   name: SEO_CONSTANTS.SITE_NAME,
