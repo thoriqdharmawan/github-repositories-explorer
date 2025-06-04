@@ -5,13 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Github, Loader2, AlertCircle } from "lucide-react";
 import { setAuthData } from "@/utils";
+import { GitHubUser } from "@/types/github";
 
 export default function CallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<GitHubUser | null>(null);
 
   useEffect(() => {
     const handleCallback = async () => {
