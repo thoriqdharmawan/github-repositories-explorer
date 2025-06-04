@@ -16,16 +16,14 @@
 **See the app in action!**
 
 ### 🖥️ Desktop Experience
+
 ![Desktop Demo](./public/demo/demo.gif)
 
 ### 📱 Mobile Experience
+
 ![Mobile Demo](./public/demo/demo-mobile.gif)
 
-*Experience the smooth user interface, search functionality, and responsive design across all devices*
-
-> **Note:** If you prefer to see the full video demos, you can find them in the [`public/demo/`](./public/demo/) folder:
-> - [Desktop Demo (MP4)](./public/demo/demo.mp4)
-> - [Mobile Demo (MP4)](./public/demo/demo-mobile.mp4)
+_Experience the smooth user interface, search functionality, and responsive design across all devices_
 
 </div>
 
