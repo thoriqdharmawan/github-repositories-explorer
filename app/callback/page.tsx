@@ -65,7 +65,6 @@ export default function CallbackPage() {
           router.push("/");
         }, 2000);
       } catch (err) {
-        console.error("OAuth callback error:", err);
         setError(
           err instanceof Error ? err.message : "An error occurred during login",
         );
