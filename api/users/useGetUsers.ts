@@ -16,7 +16,7 @@ type Props = {
 const useGetUsers = (props?: Props) => {
   const queryFn = async () => {
     try {
-      const response = await apiApp.get<ApiResponseInterface<User>>(
+      const response = await apiApp.get<ApiResponseInterface<User> | null>(
         "/search/users",
         {
           params: {
@@ -29,7 +29,10 @@ const useGetUsers = (props?: Props) => {
 
       return response.data;
     } catch (error: unknown) {
-      const e = error as AxiosError<{ message: string; documentation_url?: string }>;
+      const e = error as AxiosError<{
+        message: string;
+        documentation_url?: string;
+      }>;
       if (e?.response?.data?.message) {
         throw new Error(e.response.data.message);
       }
