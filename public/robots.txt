@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://github-repositories-explorer.vercel.app/sitemap.xml
+
+# Disallow crawling of API routes
+Disallow: /api/
+
+# Allow crawling of important pages
+Allow: /
+Allow: /callback/
+
+# Crawl delay (optional)
+Crawl-delay: 1
