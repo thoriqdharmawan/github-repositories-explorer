@@ -2,8 +2,10 @@ import {
   formatDate,
   getAuthToken,
   getAuthUser,
+  githubOAuthLogin,
   isAuthenticated,
   logout,
+  setAuthData,
 } from "../index";
 
 const mockLocalStorage = {
@@ -110,6 +112,44 @@ describe("Utils Functions", () => {
         "github_access_token",
       );
       expect(mockLocalStorage.removeItem).toHaveBeenCalled();
+      expect(window.dispatchEvent).toHaveBeenCalled();
+    });
+  });
+
+  describe("githubOAuthLogin", () => {
+    const OLD_ENV = process.env;
+
+    beforeEach(() => {
+      process.env = {
+        ...OLD_ENV,
+        NEXT_PUBLIC_CLIENT_ID: "test-client-id",
+        NEXT_PUBLIC_AUTHORIZATION_CALLBACK_URI:
+          "http://localhost:3000/callback",
+      };
+    });
+
+    it("should redirect to GitHub OAuth URL", () => {
+      githubOAuthLogin();
+
+      expect(window.location.href).toBe("http://localhost/");
+    });
+  });
+
+  describe("setAuthData", () => {
+    it("should set token and user data in localStorage", () => {
+      const token = "test-token";
+      const userData = { login: "testuser", id: 123 };
+
+      setAuthData(token, userData);
+
+      expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
+        "github_access_token",
+        token,
+      );
+      expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
+        "github_user",
+        JSON.stringify(userData),
+      );
       expect(window.dispatchEvent).toHaveBeenCalled();
     });
   });
