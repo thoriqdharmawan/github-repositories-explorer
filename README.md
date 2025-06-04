@@ -161,6 +161,66 @@ _Experience the smooth user interface, search functionality, and responsive desi
 
    Navigate to [http://localhost:3000](http://localhost:3000) 🎉
 
+## 🐳 Docker Setup (Alternative)
+
+Prefer using Docker? Here's a quick setup guide:
+
+### Prerequisites
+- **Docker** and **Docker Compose** installed on your machine
+
+### Quick Start with Docker
+
+1. **Clone and navigate to the project**
+   ```bash
+   git clone https://github.com/thoriqdharmawan/github-repositories-explorer.git
+   cd github-repositories-explorer
+   ```
+
+2. **Set up environment variables** (same as above)
+   ```env
+   NEXT_PUBLIC_APP_API_URI=https://api.github.com
+   # Add other environment variables as needed
+   ```
+
+3. **Choose your Docker setup:**
+
+   **🔥 Development Mode (with hot reload):**
+   ```bash
+   npm run docker:dev
+   # or use docker-compose directly
+   docker-compose --profile dev up dev --build
+   ```
+
+   **🚀 Production Mode:**
+   ```bash
+   # Build production image
+   npm run docker:build
+
+   # Start production server
+   npm run docker:start
+   ```
+
+4. **Access the application**
+   - Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### 🛠️ Docker Commands
+
+| Command                | Description                                    |
+| ---------------------- | ---------------------------------------------- |
+| `npm run docker:dev`   | 🔥 Start development server with hot reload    |
+| `npm run docker:build` | 📦 Build production Docker image              |
+| `npm run docker:start` | 🚀 Start production server                    |
+| `npm run docker:stop`  | 🛑 Stop all containers                        |
+| `npm run docker:clean` | 🧹 Remove containers and images               |
+| `npm run docker:logs`  | 📋 Show container logs                        |
+
+### 💡 Docker Tips
+
+- **Development mode** includes volume mounting for hot reload
+- **Production mode** creates optimized builds for deployment
+- All Docker scripts are available in `docker-setup.sh`
+- Use `docker-compose logs dev` to check development logs
+
 ## 📋 Available Scripts
 
 | Command                      | Description                                |
