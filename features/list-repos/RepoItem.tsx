@@ -11,16 +11,17 @@ import { FC } from "react";
 import { getLanguageColor } from "@/lib/languageColors";
 import { formatDate } from "@/utils";
 
-interface RepoItem {
+interface RepoItemProps {
   repo: Repo;
   onRepoClick?: (repo: Repo) => void;
 }
 
-const RepoItem: FC<RepoItem> = ({ repo, onRepoClick }) => {
+const RepoItem: FC<RepoItemProps> = ({ repo, onRepoClick }) => {
   return (
     <div
       className="cursor-pointer rounded-lg border p-4 shadow-sm transition-shadow hover:shadow-md"
       onClick={() => onRepoClick?.(repo)}
+      role="button"
     >
       <div className="mb-3 flex items-start justify-between">
         <div className="flex flex-1 items-center gap-2">
