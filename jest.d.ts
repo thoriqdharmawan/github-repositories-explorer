@@ -1,6 +1,10 @@
 /// <reference types="@testing-library/jest-dom" />
 
 import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/matchers";
+import "@testing-library/react";
+import "@testing-library/jest-dom/jest-globals";
+import "@testing-library/jest-dom";
 
 declare global {
   namespace jest {

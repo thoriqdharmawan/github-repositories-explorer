@@ -12,25 +12,16 @@ const mockLocalStorage = {
   removeItem: jest.fn(),
 };
 
-const mockWindow = {
-  location: { href: "", reload: jest.fn() },
-  dispatchEvent: jest.fn(),
-  CustomEvent: jest.fn(),
-};
-
 Object.defineProperty(window, "localStorage", {
   value: mockLocalStorage,
   writable: true,
 });
 
-if (typeof global.window === "undefined") {
-  Object.defineProperty(global, "window", {
-    value: mockWindow,
-    writable: true,
-  });
-} else {
-  Object.assign(global.window, mockWindow);
-}
+delete (window as any).location;
+window.location = { href: "", reload: jest.fn() } as any;
+
+window.dispatchEvent = jest.fn();
+(window as any).CustomEvent = jest.fn();
 
 describe("Utils Functions", () => {
   beforeEach(() => {
@@ -40,7 +31,6 @@ describe("Utils Functions", () => {
   describe("formatDate", () => {
     it("should format date string correctly", () => {
       const result = formatDate("2023-01-15T10:30:00Z");
-      console.log(result);
       expect(result).toBe("January 15, 2023");
     });
 
@@ -120,7 +110,7 @@ describe("Utils Functions", () => {
         "github_access_token",
       );
       expect(mockLocalStorage.removeItem).toHaveBeenCalled();
-      expect(mockWindow.dispatchEvent).toHaveBeenCalled();
+      expect(window.dispatchEvent).toHaveBeenCalled();
     });
   });
 });
