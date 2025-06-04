@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
-    const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRETS;
+    const clientSecret = process.env.CLIENT_SECRET;
 
     if (!clientId || !clientSecret) {
       return NextResponse.json(

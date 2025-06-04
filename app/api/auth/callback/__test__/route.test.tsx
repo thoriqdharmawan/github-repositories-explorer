@@ -8,7 +8,7 @@ global.fetch = jest.fn();
 
 const mockEnv = {
   NEXT_PUBLIC_CLIENT_ID: "test-client-id",
-  NEXT_PUBLIC_CLIENT_SECRETS: "test-client-secret",
+  CLIENT_SECRET: "test-client-secret",
 };
 
 describe("POST /api/auth/callback", () => {
