@@ -5,13 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Github, Loader2, AlertCircle } from "lucide-react";
 import { setAuthData } from "@/utils";
-import { generatePageMetadata } from "@/lib/metadata";
-
-export const metadata = generatePageMetadata({
-  title: "GitHub OAuth Callback",
-  description: "Completing GitHub authentication process for repository explorer",
-  noIndex: true, // Prevent indexing of callback page
-});
 
 export default function CallbackPage() {
   const router = useRouter();

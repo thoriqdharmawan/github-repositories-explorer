@@ -147,7 +147,6 @@ export const generateStructuredData = (): StructuredDataWebApp => ({
   screenshot: `${siteConfig.url}${siteConfig.ogImage}`,
 });
 
-// Helper function untuk membuat metadata custom untuk halaman tertentu
 export const generatePageMetadata = ({
   title,
   description,
