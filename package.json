@@ -11,7 +11,13 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:coverage:watch": "jest --coverage --watchAll",
-    "test:coverage:open": "jest --coverage && open coverage/lcov-report/index.html"
+    "test:coverage:open": "jest --coverage && open coverage/lcov-report/index.html",
+    "docker:dev": "./docker-setup.sh dev",
+    "docker:build": "./docker-setup.sh build",
+    "docker:start": "./docker-setup.sh start",
+    "docker:stop": "./docker-setup.sh stop",
+    "docker:clean": "./docker-setup.sh clean",
+    "docker:logs": "./docker-setup.sh logs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
